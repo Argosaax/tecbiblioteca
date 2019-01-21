@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Categoria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoriaController extends Controller
 {
@@ -12,9 +13,23 @@ class CategoriaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+     
+     
+   public function __construct()
+    {
+        $this->middleware('auth');
+    }  
+     
+     
+     
+     
+     
+     
     public function index()
     {
-        return view('Categoria.index');
+        $categoria  = Categoria::all();
+      
+     return view('categoria.index',['Categoria'=>$categoria]);
     }
 
     /**
@@ -24,7 +39,17 @@ class CategoriaController extends Controller
      */
     public function create()
     {
+    
+    if(Auth::user()->tipo=="admin"){
+    
         return view('Categoria.create'); 
+        
+        }else{
+        
+      
+     return redirect('/categoria');
+        
+    }
     }
 
     /**

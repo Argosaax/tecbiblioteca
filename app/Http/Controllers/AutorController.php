@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Autor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AutorController extends Controller
 {
@@ -12,9 +13,18 @@ class AutorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+     
+     public function __construct()
+    {
+        $this->middleware('auth');
+    }
+     
+     
     public function index()
     {
-        return view('Autor.index');
+        $autor  = Autor::all();
+      
+     return view('autor.index',['Autor'=>$autor]);
     }
 
     /**
@@ -24,7 +34,18 @@ class AutorController extends Controller
      */
     public function create()
     {
+    
+    if(Auth::user()->tipo=="admin"){
+    
+    
         return view('Autor.create'); 
+        
+        }else{
+        return redirect('/autores');
+       
+  }
+        
+        
     }
 
     /**

@@ -2,28 +2,11 @@
 
 
 @section('content')
-<h1>aqui se veran las Categorias</h1>
-
-
-
-@if(Auth::user()->tipo=="admin")
-
-<li class="nav-item">
-                        <a class="nav-link" href ="{{route('categoria.create')}}"> crear categorias</a>
-                        </li>    
-  
-
-@endif
-
-
-  
-  
-  
-  <div class="container">
+<div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <h3><div class="card-header">Categorias</div></h3>
+                <h3><div class="card-header">Editoriales</div></h3>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -34,19 +17,19 @@
                     <table class="table table-striped table-sm">
                         <thead>
                             <th>Nombre</th>
-                            <th>Descripcion</th>
-  <th>Ver libros</th>                          
+                            <th>email</th>
+  <th>tipo de usuario</th>                          <th>cambiar</th>
                         </thead>
                   <tbody>
                            
                           
-     @foreach($Categoria as $categoria)
+     @foreach($User as $user)
                             <tr>
-                               <td>{{$categoria->nombres}}</td>
+                               <td>{{$user->name}}</td>
                                
- <td>{{$categoria->descripcion}}</td>                              <td>
-                               <a href="#" class="btn btn-info btn-sm">Libros</a>
-                     
+ <td>{{$user->email}}</td>  
+ <td>{{$user->tipo}}</td>                            <td>
+                               <a href="{{route('tipos.edit',$user->id)}}" class="btn btn-warning btn-sm">Actualizar</a>
                                </td>
                             </tr>
                             @endforeach
@@ -66,10 +49,4 @@
         </div>
     </div>
 </div>
-
-
-  
-  
-  
-  
- @endsection
+@endsection

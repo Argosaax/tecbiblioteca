@@ -6,6 +6,8 @@ use App\Editorial;
 use App\Autor;
 use App\Categoria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class LibroController extends Controller
 {
@@ -14,6 +16,15 @@ class LibroController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+     
+     
+     public function __construct()
+    {
+        $this->middleware('auth');
+    }
+     
+     
+     
     public function index()
     {
       $libros  = Libro::all();
@@ -28,6 +39,10 @@ class LibroController extends Controller
      */
     public function create()
     {
+    
+   
+    
+    if(Auth::user()->tipo=="admin"){
        
      $editorial  = Editorial::all();
       $autor  = Autor::all();
@@ -35,10 +50,12 @@ class LibroController extends Controller
       
      	return view('Libro.create',['Editorial'=>$editorial,'Autor'=>$autor,'Categoria'=>$categoria]);
      
+  }else{
   
-       
+  return redirect('/libro');
+   
     
-       return view('Libro.create');
+   }
       
     }
 
@@ -50,7 +67,7 @@ class LibroController extends Controller
      */
     public function store(Request $request)
     {
-    
+ 
    
  $file = $request->file('portada');
  $name = time().$file->getClientOriginalName();
@@ -58,18 +75,18 @@ class LibroController extends Controller
  
  
  $libro = new Libro();
- $libro->autor_id= $request->input('autor_id');
- $libro->nombre = $request->input('nombre');
- $libro->descripcion = $request->input('descripcion');
+ $libro->autor_id= $request->autor_id;
+ $libro->nombre = $request->nombre;
+ $libro->descripcion = $request->descripcion;
  
- $libro->precio = $request->input('precio');
- 
- $libro->editorial_id=$request->input('editorial_id');
+ $libro->precio = $request->precio;
  
  
+ $libro->editorial_id=$request->editorial_id;
  
  
- $libro->categoria_id=$request->input('categoria_id');
+ 
+ $libro->categoria_id=$request->categoria_id;
  
  
  
@@ -80,8 +97,10 @@ class LibroController extends Controller
    'precio'=>'required',
    $name=>'required']);
         Libro::create($request->all());
-   */     
-       return redirect()->route('libro.create')->with('success','Registro creado satisfactoriamente');
+        
+   */    return redirect()->route('libro.create')->with('success','Registro creado satisfactoriamente');
+   
+   
    
    
     }

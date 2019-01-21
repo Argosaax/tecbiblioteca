@@ -33,3 +33,4 @@ Route::resource('autores', 'AutorController');
 
 
 Route::resource('categoria', 'CategoriaController');
+Route::resource('tipos', 'SuperController');

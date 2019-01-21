@@ -14,6 +14,15 @@
                         <label>Nombre</label>
                         <input id="nombre" name="nombre" type="text" class="form-control" required value="">
                     </div>
+  
+  
+  
+             
+  
+  
+  
+  
+  
      <div class="card-body">
                     <div class="form-group">
                         <label>precio</label>
@@ -31,10 +40,18 @@
         </select>   
         
  
- 
-               
+  
+                  
+     <select name="categoria_id">
+          <option>Categiria</option>
+               @foreach($Categoria as $categoria)        
+     
+           
+          <option value="{{$categoria->nombres}}">  {{$categoria->nombres}}    </option>
+          
+                		@endforeach
                     
-                                  <select name="editorial_id">  
+                     </select>             <select name="editorial_id">  
                     <option>Editorial</option>
      @foreach($Editorial as $editorial)        
         <option value=" {{$editorial->nombre}}" >{{$editorial->nombre}}</option>      
@@ -53,15 +70,7 @@
         
         
         
-        <select name="categoria_id">  
-                    <option>Categoria</option>
-     @foreach($Categoria as $categoria)        
-        <option value=" {{$categoria->nombre}}" >{{$categoria->nombres}}</option>      
-                
-                
-                		@endforeach
-        </select>     
-             
+        
                     
                     <div class="form-group">
                         <label>Descripcion</label>

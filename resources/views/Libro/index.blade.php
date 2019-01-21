@@ -2,8 +2,8 @@
  @extends('layouts.app')
 
 @section('content')
-
-
+ <h3>hola 
+{{Auth::user()->tipo}}</h3>
   <table class="table table-dark" align="center" >
   <thead>
   

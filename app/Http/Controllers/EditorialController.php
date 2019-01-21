@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Editorial;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EditorialController extends Controller
 {
@@ -11,12 +12,22 @@ class EditorialController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+     
+    public function __construct()
+    {
+        $this->middleware('auth');
+    } 
+     
+     
+     
     public function index()
     {
+  $editorial  = Editorial::all();
   
+     return  view('editorial.index',['Editorial'=>$editorial]);
        
       
-     return view('Editorial.index');
+     
     }
 
     /**
@@ -26,7 +37,17 @@ class EditorialController extends Controller
      */
     public function create()
     {
+    
+    if(Auth::user()->tipo=="admin"){
+    
+    
        return view('Editorial.create'); 
+       
+   }else{    
+       
+    return redirect('/editorial');
+    
+    }   
     }
 
     /**

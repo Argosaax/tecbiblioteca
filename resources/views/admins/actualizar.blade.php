@@ -5,29 +5,23 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-            <form method="POST" action="{{route('editorial.store')}}" enctype="multipart/form-data">
-                {{csrf_field()}}
+            <form method="POST" action="{{route('departamentos.update',['departamento'=>$departamento])}}">
+                @csrf
                 @method('PUT')
-                <div class="card-header">AGREGA UNA NUEVA EDITORIAL</div>
+                <div class="card-header">Datos del Departamento</div>
                 <div class="card-body">
                     <div class="form-group">
                         <label>Nombre</label>
-                        <input id="nombre" name="nombre" type="text" class="form-control" required value="">
+                        <input id="nombre" name="nombre" type="text" class="form-control" required value="{{$departamento->nombre}}">
                     </div>
-                  
-                    
                     <div class="form-group">
                         <label>Descripcion</label>
-                        <textarea id="descripcion" name="descripcion" rows=3 class="form-control" required></textarea>
+                        <textarea id="descripcion" name="descripcion" rows=3 class="form-control" required>{{$departamento->descripcion}}</textarea>
                     </div>
                 </div>
-                
-    
-                
-                
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary btn-sm">Guardar</button>
-                    <a class="btn btn-light btn-sm" href="{{route('editorial.index')}}">Cancelar</a>
+                    <a class="btn btn-light btn-sm" href="{{route('departamentos.index')}}">Cancelar</a>
                 </div>
                 </form>
             </div>
